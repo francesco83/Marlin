@@ -6,10 +6,6 @@
 
 #include "Configuration.h"
 
-#ifndef REPRAPPRO_MULTIMATERIALS
-#define  HardwareSerial_h // trick to disable the standard HWserial
-#endif
-
 #define  FORCE_INLINE __attribute__((always_inline)) inline
 
 #include <math.h>
@@ -40,6 +36,7 @@
 #endif
 
 #include "MarlinSerial.h"
+#include "SerialManager.h"
 
 #ifndef cbi
 #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
@@ -51,8 +48,8 @@
 #include "WString.h"
 
 #ifdef REPRAPPRO_MULTIMATERIALS
-  #define MYSERIAL Serial
-  #define MYSERIAL1 Serial1
+  #define MYSERIAL MSerial
+  #define MYSERIAL1 MSerial1
 #else
 
 #if MOTHERBOARD == 8 // Teensylu
@@ -70,16 +67,16 @@
 // //#define PSTR    (s )        ((const PROGMEM char *)(s))
 // //# define MYPGM(s) (__extension__({static prog_char __c[] = (s); &__c[0];})) 
 // //#define MYPGM(s) ((const prog_char *g PROGMEM=s))
-#define MYPGM(s) PSTR(s)
-//#define MYPGM(s)  (__extension__({static char __c[] __attribute__((__progmem__)) = (s); &__c[0];}))  //This is the normal behaviour
+//#define MYPGM(s) PSTR(s)
+#define MYPGM(s)  (__extension__({static char __c[] __attribute__((__progmem__)) = (s); &__c[0];}))  //This is the normal behaviour
 //#define MYPGM(s)  (__extension__({static prog_char __c[]  = (s); &__c[0];})) //this does not work but hides the warnings
 
 
-#define SERIAL_PROTOCOL(x) MYSERIAL.print(x);
-#define SERIAL_PROTOCOL_F(x,y) MYSERIAL.print(x,y);
+#define SERIAL_PROTOCOL_F(x,y) SerialMgr.cur()->print(x,y);
+#define SERIAL_PROTOCOL(x) SerialMgr.cur()->print(x);
 #define SERIAL_PROTOCOLPGM(x) serialprintPGM(MYPGM(x));
-#define SERIAL_PROTOCOLLN(x) {MYSERIAL.print(x);MYSERIAL.write('\n');}
-#define SERIAL_PROTOCOLLNPGM(x) {serialprintPGM(MYPGM(x));MYSERIAL.write('\n');}
+#define SERIAL_PROTOCOLLN(x) {SerialMgr.cur()->print(x);SerialMgr.cur()->write('\n');}
+#define SERIAL_PROTOCOLLNPGM(x) {serialprintPGM(MYPGM(x));SerialMgr.cur()->write('\n');}
 
 
 const char errormagic[] PROGMEM ="Error:";
@@ -106,7 +103,8 @@ FORCE_INLINE void serialprintPGM(const char *str)
   char ch=pgm_read_byte(str);
   while(ch)
   {
-    MYSERIAL.write(ch);
+    //MYSERIAL.write(ch);
+    SerialMgr.cur()->write(ch);
     ch=pgm_read_byte(++str);
   }
 }
