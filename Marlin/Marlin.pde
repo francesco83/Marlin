@@ -161,9 +161,9 @@ volatile int extrudemultiply=100; //100->1 200->2
 float current_position[NUM_AXIS] = { 0.0, 0.0, 0.0, 0.0 };
 float add_homeing[3]={0,0,0};
 uint8_t active_extruder = 0;
-float extruder_x_off[EXTRUDERS];
-float extruder_y_off[EXTRUDERS];
-float extruder_z_off[EXTRUDERS];
+float extruder_x_off[EXTRUDERS] = X_EXTRUDER_OFFSET;
+float extruder_y_off[EXTRUDERS] = Y_EXTRUDER_OFFSET;
+float extruder_z_off[EXTRUDERS] = Z_EXTRUDER_OFFSET;
 float extruder_standby[EXTRUDERS];
 float extruder_temperature[EXTRUDERS];
 float x_off_d;
@@ -301,9 +301,6 @@ void setup()
   
   for(int8_t i = 0; i < EXTRUDERS; i++)
   {
-    extruder_x_off[i] = X_EXTRUDER_OFFSET;
-    extruder_y_off[i] = Y_EXTRUDER_OFFSET;
-    extruder_z_off[i] = Z_EXTRUDER_OFFSET;
     extruder_standby[i] = STANDBY_TEMP;
     extruder_temperature[i] = DEFAULT_TEMP;
   }

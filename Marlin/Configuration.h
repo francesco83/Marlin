@@ -263,10 +263,17 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {91.4286, 91.4286, 4000, 875} 
 
 // Defaults changed by the G10 command
+#ifdef REPRAPPRO_MULTIMATERIALS
+                         // E0    E1    E2
+#define X_EXTRUDER_OFFSET {0.00, 0.00, 0.000}
+#define Y_EXTRUDER_OFFSET {0.00, 0.00, 0.000}
+#define Z_EXTRUDER_OFFSET {0.00, 0.00, 0.000}
+#else
+#define X_EXTRUDER_OFFSET {0.00}
+#define Y_EXTRUDER_OFFSET {0.00}
+#define Z_EXTRUDER_OFFSET {0.00}
+#endif
 
-#define X_EXTRUDER_OFFSET 0
-#define Y_EXTRUDER_OFFSET 0
-#define Z_EXTRUDER_OFFSET 0
 #define STANDBY_TEMP 0
 #define DEFAULT_TEMP 0
 
