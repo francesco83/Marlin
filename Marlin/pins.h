@@ -106,7 +106,7 @@
 #define E0_STEP_PIN         1
 #define E0_DIR_PIN          0
 
-#define PROBE_PIN          -1    //29 on Melzi1284p A2
+#define PROBE_PIN          29    //29 on Melzi1284p A2
 
 #define LED_PIN            27
 
