@@ -22,6 +22,7 @@
 
 // Uncomment the next line if your machine has more than one extruder
 //#define REPRAPPRO_MULTIMATERIALS
+//#define DOUBLEEXTRUDERS
 
 // -------------------------------------------------------------------------------
 
@@ -47,7 +48,7 @@
 
 // Uncomment this if you are experimenting, know what you are doing, and want to switch off some safety
 // features, e.g. allow extrude at low temperature etc.
-//#define DEVELOPING
+#define DEVELOPING
 
 // This configurtion file contains the basic settings.
 // Advanced settings can be found in Configuration_adv.h 
@@ -56,7 +57,7 @@
 //User specified version info of THIS file to display in [Pronterface, etc] terminal window during startup.
 //Implementation of an idea by Prof Braino to inform user that any changes made
 //to THIS file by the user have been successfully uploaded into firmware.
-#define STRING_VERSION_CONFIG_H "2012-10-15-1-JMG" //Personal revision number for changes to THIS file.
+#define STRING_VERSION_CONFIG_H "2012-11-6-Marco(MM)" //Personal revision number for changes to THIS file.
 #define STRING_CONFIG_H_AUTHOR "RepRapPro" //Who made the changes.
 
 // This determines the communication speed of the printer
@@ -266,9 +267,28 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 
 // Defaults changed by the G10 command
 
-#define X_EXTRUDER_OFFSET 0
-#define Y_EXTRUDER_OFFSET 0
-#define Z_EXTRUDER_OFFSET 0
+
+#ifdef DOUBLEEXTRUDERS
+                           // E0    E1   
+#define X_EXTRUDER_OFFSET {0.00, 0.00}
+#define Y_EXTRUDER_OFFSET {0.00, 0.00}
+#define Z_EXTRUDER_OFFSET {0.00, 0.00}
+
+#elif defined(REPRAPPRO_MULTIMATERIALS)
+
+                           // E0    E1   E3
+#define X_EXTRUDER_OFFSET {0.00, 0.00 , 0.00}
+#define Y_EXTRUDER_OFFSET {0.00, 0.00 , 0.00}
+#define Z_EXTRUDER_OFFSET {0.00, 0.00 , 0.00}
+
+#else
+
+#define X_EXTRUDER_OFFSET {0.00}
+#define Y_EXTRUDER_OFFSET {0.00}
+#define Z_EXTRUDER_OFFSET {0.00}
+
+#endif
+
 #define STANDBY_TEMP 140
 #define PLA_TEMP 205
 #define ABS_TEMP 250

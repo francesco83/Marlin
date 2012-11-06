@@ -39,7 +39,7 @@
 #define PROBE_PIN          20
 
 #define LED_PIN            -1
-#define FAN_PIN            12
+#define FAN_PIN            -1
 
 #define PS_ON_PIN          -1
 #define KILL_PIN           -1
@@ -105,8 +105,12 @@
 
 #define E0_STEP_PIN         1
 #define E0_DIR_PIN          0
+#ifdef DOUBLEEXTRUDER
+#define E1_DIR_PIN          28
+#define E1_STEP_PIN         17
+#endif
 
-#define PROBE_PIN          -1    //29 on Melzi1284p A2
+#define PROBE_PIN          29    //29 on Melzi1284p A2
 
 #define LED_PIN            27
 
@@ -116,20 +120,28 @@
 #define KILL_PIN           -1
 
 #define HEATER_0_PIN       13 // (extruder)
-#define HEATER_1_PIN       -1
-#define HEATER_2_PIN       -1
-#ifdef REPRAPPRO_HUXLEY
-  #define HEATER_BED_PIN     10 // bed (change to 10 for gate pin of MOSFET on heated bed)
+#ifdef DOUBLEEXTRUDER
+#define HEATER_1_PIN       30
 #else
-  #define HEATER_BED_PIN     12
+#define HEATER_1_PIN       -1
 #endif
+#define HEATER_2_PIN       -1
+
+#define HEATER_BED_PIN     12 // bed (change to 10 for gate pin of MOSFET on heated bed)
 #define X_ENABLE_PIN       14
 #define Y_ENABLE_PIN       14
 #define Z_ENABLE_PIN       26
 #define E0_ENABLE_PIN      14
+#ifdef DOUBLEEXTRUDER
+#define E1_ENABLE_PIN      29
+#endif
 
 #define TEMP_0_PIN          7   // MUST USE ANALOG INPUT NUMBERING NOT DIGITAL OUTPUT NUMBERING!!!!!!!!! (pin 33 extruder)
-#define TEMP_1_PIN         -1
+#ifdef DOUBLEEXTRUDER
+#define TEMP_1_PIN          4
+#else
+#define TEMP_1_PIN          -1
+#endif
 #define TEMP_2_PIN         -1
 #define TEMP_BED_PIN        6   // MUST USE ANALOG INPUT NUMBERING NOT DIGITAL OUTPUT NUMBERING!!!!!!!!! (pin 34 bed)
 #define SDPOWER            -1
