@@ -364,6 +364,8 @@ void setup()
   setup_slave();
 #endif
 
+  LCD_INIT
+
 }
 
 
@@ -734,6 +736,7 @@ void process_commands()
          if(code_seen('S'))
              extruder_temperature[tmp_extruder] = code_value();
       }
+      LCD_STATUS;
       break;
   
     case 28: //G28 Home all Axis one at a time

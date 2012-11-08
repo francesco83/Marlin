@@ -50,8 +50,8 @@
 #include "WString.h"
 
 #ifdef REPRAPPRO_MULTIMATERIALS
-  #define MYSERIAL Serial
-  #define MYSERIAL1 Serial1
+  #define MYSERIAL MSerial
+  #define MYSERIAL1 MSerial1
 #else
 
 #if MOTHERBOARD == 8 // Teensylu
@@ -59,6 +59,10 @@
   #define MYSERIAL1 Serial1
 #else
   #define MYSERIAL MSerial
+#endif
+
+#ifdef LCD_4D
+  #define MYSERIAL1 MSerial1
 #endif
 
 #endif
@@ -79,6 +83,14 @@
 #define SERIAL_PROTOCOLPGM(x) serialprintPGM(MYPGM(x));
 #define SERIAL_PROTOCOLLN(x) {MYSERIAL.print(x);MYSERIAL.write('\n');}
 #define SERIAL_PROTOCOLLNPGM(x) {serialprintPGM(MYPGM(x));MYSERIAL.write('\n');}
+
+#ifdef MYSERIAL1
+#define SERIAL1_PROTOCOL(x) MYSERIAL1.print(x);
+#define SERIAL1_PROTOCOL_F(x,y) MYSERIAL1.print(x,y);
+#define SERIAL1_PROTOCOLPGM(x) serial1printPGM(MYPGM(x));
+#define SERIAL1_PROTOCOLLN(x) {MYSERIAL1.print(x);MYSERIAL1.write('\n');}
+#define SERIAL1_PROTOCOLLNPGM(x) {serial1printPGM(MYPGM(x));MYSERIAL1.write('\n');}
+#endif
 
 
 const char errormagic[] PROGMEM ="Error:";
@@ -109,6 +121,19 @@ FORCE_INLINE void serialprintPGM(const char *str)
     ch=pgm_read_byte(++str);
   }
 }
+
+#ifdef MYSERIAL1
+#define Serial1printPGM(x) serial1printPGM(MYPGM(x))
+FORCE_INLINE void serial1printPGM(const char *str)
+{
+  char ch=pgm_read_byte(str);
+  while(ch)
+  {
+    MYSERIAL1.write(ch);
+    ch=pgm_read_byte(++str);
+  }
+}
+#endif
 
 // printing floats to 3DP
 FORCE_INLINE void serialPrintFloat( float f){

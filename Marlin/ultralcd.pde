@@ -1,6 +1,8 @@
 #include "language.h"
 #include "temperature.h"
 #include "ultralcd.h"
+
+#ifndef LCD_4D
 #ifdef ULTRA_LCD
 #include "Marlin.h"
 #include "language.h"
@@ -2640,5 +2642,5 @@ char *ftostr52(const float &x)
 }
 
 #endif //ULTRA_LCD
-
+#endif //LCD_4D
 
