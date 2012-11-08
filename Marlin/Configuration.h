@@ -261,8 +261,8 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 // default settings 
 // X, Y, Z, E steps per mm
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {91.4286, 91.4286, 4000, 875} // belt T2.5, pulley 14 teeth
-//#define DEFAULT_AXIS_STEPS_PER_UNIT   {71.1111, 71.1111, 4000, 875} // belt T2.5, pulley 18 teeth
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {91.4286, 91.4286, 4000, 875} // belt T2.5, pulley 14 teeth
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {71.1111, 71.1111, 4000, 875} // belt T2.5, pulley 18 teeth
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {64, 64, 4000, 875}           // belt T2.5, pulley 20 teeth
 
 // Defaults changed by the G10 command
