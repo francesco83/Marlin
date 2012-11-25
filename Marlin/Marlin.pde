@@ -108,6 +108,7 @@
 // M114 - Output current position to serial port 
 // M115	- Capabilities string
 // M117 - display message
+// M118 - LCD 4D Finish Sound
 // M119 - Output Endstop status to serial port
 // M140 - Set bed target temp
 // M190 - Wait for bed current temp to reach target temp.
@@ -1148,6 +1149,12 @@ void process_commands()
     case 117: // M117 display message
       LCD_MESSAGE(cmdbuffer[bufindr]+5);
       break;
+    #ifdef LCD_4D
+    case 118: //M118 finish sound
+      LCD_FINISH_SOUND
+      break;
+    #endif
+    
     case 114: // M114
       SERIAL_PROTOCOLPGM("X:");
       SERIAL_PROTOCOL(current_position[X_AXIS]);

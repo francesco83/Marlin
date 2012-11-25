@@ -3,6 +3,7 @@
 #include "Marlin.h"
 #include "stepper.h"
 #include "temperature.h"
+#include "ultralcd.h"
 
 float Probe_Bed(float x_pos, float y_pos, int n)
 {
@@ -35,8 +36,15 @@ float Probe_Bed(float x_pos, float y_pos, int n)
 
 	  enable_endstops(true);
       SERIAL_ECHO("PRE-PROBE current_position[Z_AXIS]=");SERIAL_ECHOLN(current_position[Z_AXIS]);
+      #ifdef LCD_4D
+      SERIAL1_PROTOCOL("M:PRE-PROBE current_position[Z_AXIS]=");
+      SERIAL1_PROTOCOLLN(current_position[Z_AXIS]);
+      #endif
 
 	  SERIAL_ECHOLN("Ready to probe...");
+      #ifdef LCD_4D
+      SERIAL1_PROTOCOLLN("M:Ready to probe");
+      #endif
 
         //Probe bed n times
         //*******************************************************************************************Bed Loop*************************************
@@ -54,18 +62,31 @@ float Probe_Bed(float x_pos, float y_pos, int n)
 			//feedrate = 0.0;
             
             SERIAL_ECHO("current_position[Z_AXIS]=");SERIAL_ECHOLN(current_position[Z_AXIS]);
+            #ifdef LCD_4D
+            SERIAL1_PROTOCOL("M:current_position[Z_AXIS]=");
+            SERIAL1_PROTOCOLLN(current_position[Z_AXIS]);
+            #endif
             if(endstop_z_hit == true)
             {
 	            SERIAL_ECHO("endstops_trigsteps[Z_AXIS]=");SERIAL_ECHOLN(endstops_trigsteps[Z_AXIS]);
 	            ProbeDepth[i]= endstops_trigsteps[Z_AXIS] / axis_steps_per_unit[Z_AXIS];
 	            meas = ProbeDepth[i];
 	            SERIAL_ECHO("ProbeDepth[");SERIAL_ECHO(i);SERIAL_ECHO("]=");SERIAL_ECHOLN(ProbeDepth[i]);
+                #ifdef LCD_4D
+                SERIAL1_PROTOCOL("M:ProbeDepth[");
+                SERIAL1_PROTOCOL(i);
+                SERIAL1_PROTOCOL("]=");
+                SERIAL1_PROTOCOLLN(ProbeDepth[i]);
+                #endif
             	//*************************************************************************************************************
 		        if (i > 0 ) //Second probe has happened so compare results
 		        {
 		            if (abs(ProbeDepth[i] - ProbeDepth[i - 1]) > .05)
 		            { //keep going until readings match to avoid sticky bed
 		              SERIAL_ECHO("Probing again: ");
+                      #ifdef LCD_4D
+                      SERIAL1_PROTOCOLLN("M:Probing again:");
+                      #endif
 		              SERIAL_ECHO(ProbeDepth[i]); SERIAL_ECHO(" - "); SERIAL_ECHO(ProbeDepth[i - 1]);SERIAL_ECHO(" = "); SERIAL_ECHOLN(abs(ProbeDepth[i] - ProbeDepth[i - 1]));
 		              meas = ProbeDepth[i];
 		              i--; i--; //Throw out both that don't match because we don't know which one is accurate
