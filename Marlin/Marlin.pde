@@ -378,6 +378,9 @@ void loop()
   #ifdef SDSUPPORT
     card.checkautostart(false);
   #endif
+  #ifdef LCD_4D
+    LCD4D_CHECKDATA
+  #endif
   if(buflen)
   {
     #ifdef SDSUPPORT
