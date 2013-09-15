@@ -104,7 +104,7 @@
 #define AD_RANGE 16383
 
 // RS 198-961
-#define E_BETA 3960.0
+#define E_BETA 4066
 #define E_RS SERIAL_R
 #define E_NTC 100000.0
 #define E_R_INF ( E_NTC*exp(-E_BETA/298.15) )
@@ -112,9 +112,9 @@
 
 #ifdef REPRAPPRO_MENDEL
 // RS 484-0149; EPCOS B57550G103J
-#define BED_BETA 3480.0
+#define BED_BETA 4066
 #define BED_RS SERIAL_R
-#define BED_NTC 10000.0
+#define BED_NTC 100000.0
 #define BED_R_INF ( BED_NTC*exp(-BED_BETA/298.15) )
 #endif
 
@@ -262,7 +262,7 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 // X, Y, Z, E steps per mm
 
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {91.4286, 91.4286, 4000, 875} // belt T2.5, pulley 14 teeth
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {71.1111, 71.1111, 4000, 875} // belt T2.5, pulley 18 teeth
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 4000, 887} // belt T2.5, pulley 18 teeth
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {64, 64, 4000, 875}           // belt T2.5, pulley 20 teeth
 
 // Defaults changed by the G10 command
