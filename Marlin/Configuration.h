@@ -216,7 +216,7 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 #define INVERT_X_DIR true    // for Mendel set to false, for Orca set to true
 #define INVERT_Y_DIR false    // for Mendel set to true, for Orca set to false
 #define INVERT_Z_DIR false     // for Mendel set to false, for Orca set to true
-#define INVERT_E0_DIR true   // for direct drive extruder v9 set to true, for geared extruder set to false
+#define INVERT_E0_DIR true // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E1_DIR true    // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E2_DIR true   // for direct drive extruder v9 set to true, for geared extruder set to false
 
@@ -260,9 +260,10 @@ const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of t
 
 // default settings 
 // X, Y, Z, E steps per mm
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 4000, 412} // belt T2.5, pulley 16 teeth, Fala Extruder
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 4000, 887} // belt T2.5, pulley 16 teeth, Greg Extruder
 
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {91.4286, 91.4286, 4000, 875} // belt T2.5, pulley 14 teeth
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 4000, 887} // belt T2.5, pulley 18 teeth
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {64, 64, 4000, 875}           // belt T2.5, pulley 20 teeth
 
 // Defaults changed by the G10 command
