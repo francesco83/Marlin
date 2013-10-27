@@ -173,9 +173,12 @@
 
 
 // RepRapPro Huxley + Mendel
-    #define  DEFAULT_Kp 12.0
-    #define  DEFAULT_Ki (2.2*PID_dT)
-    #define  DEFAULT_Kd (80/PID_dT)
+    //#define  DEFAULT_Kp 12.0
+    //#define  DEFAULT_Ki (2.2*PID_dT)
+    //#define  DEFAULT_Kd (80/PID_dT)
+    #define  DEFAULT_Kp 76.53
+    #define  DEFAULT_Ki 12.83
+    #define  DEFAULT_Kd 114.11
 
 #endif // PIDTEMP
 
